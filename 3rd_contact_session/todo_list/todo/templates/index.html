@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href="{% static 'index.css' %}">
+        <title>Bincom Todo List</title>
+    </head>
+    <body>
+        <div class='container'>
+            <h1>Todo List</h1>
+        </div>
+        <div class='container'>
+            <h3>Create New Todo</h3>
+            <form action="/new" method="POST" id="new-todo-form">
+                {% csrf_token %}
+                <input type="text" name="title" placeholder="Title" required />
+                <textarea name="description" placeholder="Description"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="container">
+            <ul class="todo-list">
+                {% for item in todo_list %}
+                    <li id="{{ item.id }}" class="todo-item {{ item.status|lower }}">
+                        <h4>{{ item.title|title }}</h4>
+                        <p>
+                            {{ item.description }}
+                            <br>
+                            <br>
+                            <span>{{ item.time }}</span>
+                        </p>
+                        <a href="/toggle/{{ item.id }}">
+                            <button>
+                                {% if item.status == False %}
+                                    Mark Done
+                                {% else %}
+                                    Mark Undone
+                                {% endif %}
+                            </button>
+                        </a>
+                        <a href="/delete/{{ item.id }}">
+                            <button>Delete</button>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </body>
+</html>
