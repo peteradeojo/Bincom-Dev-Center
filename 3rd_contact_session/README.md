@@ -16,7 +16,8 @@ $ pip install -r requirements.txt
 
 1. Run Fibonacci Assignment
 ```sh
-$ python manage.py fibonacci.py
+$ cd Q1
+$ python fibonacci.py
 ```
 
 2. Run Todo List Application Assignment
